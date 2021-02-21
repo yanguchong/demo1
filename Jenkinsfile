@@ -8,16 +8,16 @@ pipeline {
             }
         }
         stage("Deploy") {
-            dir("${WORKSPACE}"){
-                steps {
-                    pwd();
-                    withAWS(region: 'us-west-2', credentials: 'creds_for_aws'){
-                        def identity = awsIdentity();
-                        s3Upload(bucket:'yangs-website-demo', 
-                            path: 'demo1/',
-                            workingDir:'build', 
-                            includePathPattern:'**/*')
-                    }
+            steps {
+                dir("${WORKSPACE}"){
+                        pwd();
+                        withAWS(region: 'us-west-2', credentials: 'creds_for_aws'){
+                            def identity = awsIdentity();
+                            s3Upload(bucket:'yangs-website-demo', 
+                                path: 'demo1/',
+                                workingDir:'build', 
+                                includePathPattern:'**/*')
+                        }
                 }
             }
         }
